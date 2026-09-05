@@ -53,8 +53,8 @@ public class CollectorClassFileVisitor implements ClassFileVisitor {
     /** {@inheritDoc} */
     @Override
     public void visitClass(String className, InputStream in) {
-        // inner classes have equivalent compilation requirement as container class
-        if (className.indexOf('$') < 0 && !excludedClasses.isMatch(className)) {
+        // '$' is legal in a top-level class name, so nesting cannot be inferred from the binary name.
+        if (!excludedClasses.isMatch(className)) {
             classes.add(className);
         }
     }

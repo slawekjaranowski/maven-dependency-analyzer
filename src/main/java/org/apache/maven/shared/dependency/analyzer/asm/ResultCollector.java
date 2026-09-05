@@ -110,10 +110,8 @@ public class ResultCollector {
      * @param name a {@link java.lang.String} object.
      */
     public void add(final String usedByClass, final String name) {
-        // inner classes have equivalent compilation requirement as container class
-        if (name.indexOf('$') < 0) {
-            classUsages.add(new DependencyUsage(name, usedByClass));
-        }
+        // '$' is legal in a top-level class name, so nesting cannot be inferred from the binary name.
+        classUsages.add(new DependencyUsage(name, usedByClass));
     }
 
     void addNames(final String usedByClass, final String[] names) {
